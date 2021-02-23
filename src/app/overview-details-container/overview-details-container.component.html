@@ -1,6 +1,6 @@
 <div class="overview-detail-container">
   <app-item-details [item] = "this.weatherItemData"></app-item-details>
-  <app-day-details-list [weatherData] = "this.weatherListData" (selectedItem)="this.weatherItemData = $event"></app-day-details-list>
+  <app-day-details-list (selectedItem)="this.weatherItemData = $event"></app-day-details-list>
 </div>
 <router-outlet></router-outlet>
 

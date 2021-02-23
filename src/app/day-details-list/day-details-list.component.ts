@@ -9,16 +9,14 @@ import {WeatherService} from '../services/weather.service';
 })
 export class DayDetailsListComponent implements OnInit {
 
-
-  @Input() weatherData: Data[];
+  weatherData: Data[];
   @Output() selectedItem: EventEmitter<Data> = new EventEmitter<Data>();
-
 
   constructor(private weatherService: WeatherService) {
   }
 
   ngOnInit(): void {
-
+    this.weatherService.getData().subscribe(items => this.weatherData = items.slice(0, 5));
   }
 
 

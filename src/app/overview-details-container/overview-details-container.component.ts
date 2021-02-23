@@ -12,7 +12,6 @@ import {Data} from '../interfaces/data';
 export class OverviewDetailsContainerComponent implements OnInit {
 
   weatherItemData: Data;
-  weatherListData: Data[];
 
   constructor(private route: ActivatedRoute,
               private weatherService: WeatherService
@@ -30,7 +29,6 @@ export class OverviewDetailsContainerComponent implements OnInit {
   }
 
   getListDataWeather(): void {
-    this.weatherService.getData().subscribe(items => this.weatherListData = items.slice(0, 5));
     this.weatherService.getColorComponentId(+this.route.snapshot.paramMap.get('id'));
   }
 
