@@ -7,13 +7,13 @@ import {CustomPreloadingService} from './services/custom-preloading.service';
 const routes: Routes = [
   {
     path: '',
-    data: {preload: true},
+    data: {preload: true, loadAfter: 5000},
     loadChildren: () => import('./container/container.module')
       .then(m => m.ContainerModule)
   },
   {
     path: 'overview-details/:id',
-    data: {preload: true},
+    data: {preload: true, loadAfter: 5000},
     loadChildren: () => import('./overview-details-container/overview-details-container-module.module')
       .then(m => m.OverviewDetailsContainerModule)
   },
