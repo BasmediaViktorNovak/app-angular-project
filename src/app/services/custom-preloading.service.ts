@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {PreloadingStrategy, Route} from '@angular/router';
-import {Observable} from "rxjs";
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomPreloadingService implements PreloadingStrategy{
+export class CustomPreloadingService implements PreloadingStrategy {
 
-  constructor() { }
+  constructor() {
+  }
 
   preload(route: Route, fn: () => Observable<any>): Observable<any> {
-    return undefined;
+    if (route.data && route.data['preload']) {
+        return fn();
+    }
+    // The route doesn't have data component, ignore the module
+    return of(null);
   }
 }

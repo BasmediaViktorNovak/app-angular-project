@@ -1,15 +1,19 @@
 import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {ContainerComponent} from './container/container.component';
+import {CustomPreloadingService} from './services/custom-preloading.service';
 
 
 const routes: Routes = [
   {
-    path: '', loadChildren: () => import('./container/container.module')
+    path: '',
+    data: {preload: true},
+    loadChildren: () => import('./container/container.module')
       .then(m => m.ContainerModule)
   },
   {
     path: 'overview-details/:id',
+    data: {preload: true},
     loadChildren: () => import('./overview-details-container/overview-details-container-module.module')
       .then(m => m.OverviewDetailsContainerModule)
   },
@@ -17,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: CustomPreloadingService})],
   exports: [RouterModule]
 })
 
