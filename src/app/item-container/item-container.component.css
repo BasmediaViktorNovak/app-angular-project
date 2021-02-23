@@ -1,0 +1,19 @@
+.example-card {
+  padding: 30px;
+  position: relative;
+  background: rgba(255, 255, 255, .1);
+  box-shadow: 0 0 10px 1px #944;
+  isolation: isolate;
+  -webkit-transition: background-color .3s ease;
+  transition: 1s;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.example-card:hover {
+  background: aliceblue;
+  transform: scale(1.1);
+}

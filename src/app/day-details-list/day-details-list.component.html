@@ -1,0 +1,7 @@
+<div class="container-day-details-list">
+  <app-day-detail-item *ngFor="let item of weatherData"
+                       (click)="this.selectedItem.emit(item)"
+                       [item]="item"
+                       routerLink="/overview-details/{{item.id}}">
+  </app-day-detail-item>
+</div>
