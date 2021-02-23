@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Data} from '../interfaces/data';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {DataService} from '../data/data.service';
 
 @Injectable({
@@ -10,12 +10,11 @@ import {DataService} from '../data/data.service';
 
 export class WeatherService {
 
-  private selectedComponentColor: string;
+
+  dayItemSubject = new Subject<any>();
 
   constructor() {
   }
-
-
 
   getData(): Observable<Data[]> {
     return of(DataService);
@@ -25,15 +24,6 @@ export class WeatherService {
     return of(DataService.find(item => item.id === id));
   }
 
-  getColorComponentId(id: number): void {
-    if (DataService.find(i => i.id === id)) {
-      this.selectedComponentColor = 'red';
-    }
-  }
 
-  getSelectedColor(): Observable<string> {
-      console.log('Selected', this.selectedComponentColor);
-      return of(this.selectedComponentColor);
-  }
 
 }

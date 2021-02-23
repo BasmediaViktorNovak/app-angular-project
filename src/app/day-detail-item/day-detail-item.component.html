@@ -1,8 +1,12 @@
-<mat-card class="example-card">
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-  <mat-card-content>
-    <p>{{item.id}}</p>
-    <p>{{item.name}}</p>
-  </mat-card-content>
-</mat-card>
+<div [ngClass]="{'back' : this.selectedItem === item}">
+  <mat-card class="example-card">
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>{{item.id}}</p>
+      <p>{{item.name}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
 

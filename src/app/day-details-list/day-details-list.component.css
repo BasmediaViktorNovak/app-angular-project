@@ -9,6 +9,11 @@
 }
 
 
+.selected{
+  background-color: red;
+}
+
+
 
 @media (max-width: 1400px) {
   .container-day-details-list{

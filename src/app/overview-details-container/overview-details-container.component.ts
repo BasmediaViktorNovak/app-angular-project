@@ -12,6 +12,7 @@ import {Data} from '../interfaces/data';
 export class OverviewDetailsContainerComponent implements OnInit {
 
   weatherItemData: Data;
+  weatherListData: Data[];
 
   constructor(private route: ActivatedRoute,
               private weatherService: WeatherService
@@ -24,12 +25,11 @@ export class OverviewDetailsContainerComponent implements OnInit {
   }
 
   getData(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.weatherService.getItemData(id).subscribe(item => this.weatherItemData = item);
+    this.weatherService.getItemData(+this.route.snapshot.paramMap.get('id')).subscribe(item => this.weatherItemData = item);
   }
 
   getListDataWeather(): void {
-    this.weatherService.getColorComponentId(+this.route.snapshot.paramMap.get('id'));
+    this.weatherService.getData().subscribe(items => this.weatherListData = items.slice(0, 5));
   }
 
 }
