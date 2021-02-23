@@ -18,7 +18,7 @@ export class HeaderContainerComponent implements OnInit, AdComponent {
 
   constructor(private adService: AdService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.ads = this.adService.getAds();
   }
 

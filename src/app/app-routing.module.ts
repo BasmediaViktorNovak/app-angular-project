@@ -1,12 +1,18 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {OverviewDetailsContainerComponent} from './overview-details-container/overview-details-container.component';
 import {ContainerComponent} from './container/container.component';
 
 
 const routes: Routes = [
-  {path: '', component: ContainerComponent},
-  {path: 'overview-details/:id', component: OverviewDetailsContainerComponent},
+  {
+    path: '', loadChildren: () => import('./container/container.module')
+      .then(m => m.ContainerModule)
+  },
+  {
+    path: 'overview-details/:id',
+    loadChildren: () => import('./overview-details-container/overview-details-container-module.module')
+      .then(m => m.OverviewDetailsContainerModule)
+  },
   {path: '**', component: ContainerComponent}
 ];
 
@@ -14,5 +20,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }
