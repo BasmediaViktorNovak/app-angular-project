@@ -1,8 +1,23 @@
 <mat-card class="example-card">
   <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
   <mat-card-content>
-    <p>{{item.id}}</p>
-    <p>{{item.name}}</p>
+    <div class="header-text">
+      <h1>{{item.nameCity}}</h1>
+    </div>
+    <div class="under-header-text">
+        <div class="col-6">
+          <h4>Weather</h4>
+          <h4>Temperature</h4>
+          <h4>Date</h4>
+        </div>
+        <div class="col-6">
+          <h4>{{item.weatherMain}}</h4>
+          <h4>{{item.temp}}</h4>
+          <h4>{{item.dateTime | date}}</h4>
+        </div>
+    </div>
+
+
   </mat-card-content>
   <mat-card-actions>
     <button aria-label="Example icon button with a heart icon" color="warn" mat-icon-button>

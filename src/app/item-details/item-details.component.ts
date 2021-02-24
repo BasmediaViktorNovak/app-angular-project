@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Data} from '../interfaces/data';
-import {WeatherService} from "../services/weather.service";
+import {Component, OnInit} from '@angular/core';
+import {WeatherService} from '../services/weather.service';
+import {DataWeather} from '../model-clasess/data';
 
 @Component({
   selector: 'app-item-details',
@@ -8,7 +8,7 @@ import {WeatherService} from "../services/weather.service";
   styleUrls: ['./item-details.component.css']
 })
 export class ItemDetailsComponent implements OnInit {
-  item: Data;
+  item: DataWeather;
 
   constructor(private weatherService: WeatherService) {
     this.weatherService.dayItemSubject.subscribe(dayItem => this.item = dayItem);

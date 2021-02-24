@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Data} from '../interfaces/data';
 import {WeatherService} from '../services/weather.service';
 import {ActivatedRoute} from '@angular/router';
+import {DataWeather} from '../model-clasess/data';
 
 @Component({
   selector: 'app-day-detail-item',
@@ -9,9 +9,9 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./day-detail-item.component.css']
 })
 export class DayDetailItemComponent implements OnInit {
-  @Input() item: Data;
-  selectedItem: Data;
-  color: string;
+  @Input() item: DataWeather;
+  selectedItem: DataWeather;
+  id: number;
 
   constructor(public weatherService: WeatherService,
               private activatedRoute: ActivatedRoute) {
@@ -19,10 +19,10 @@ export class DayDetailItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.seletedFunction();
+    this.selectedFunction();
   }
 
-  seletedFunction(): void {
+  selectedFunction(): void {
     const id = +this.activatedRoute.snapshot.paramMap.get('id');
     this.weatherService.getItemData(id).subscribe(item => this.selectedItem = item);
   }

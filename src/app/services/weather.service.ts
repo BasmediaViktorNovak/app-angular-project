@@ -1,29 +1,31 @@
 import {Injectable} from '@angular/core';
-import {Data} from '../interfaces/data';
 import {Observable, of, Subject} from 'rxjs';
-import {DataService} from '../data/data.service';
+import * as ApiDataWeather from '../json/weather_14.json';
+import {DataWeather} from '../model-clasess/data';
 
 @Injectable({
   providedIn: 'root'
 })
 
-
 export class WeatherService {
 
+  dayItemSubject: Subject<DataWeather> = new Subject<DataWeather>();
+  weatherDataArray: Array<DataWeather> = new Array<DataWeather>();
 
-  dayItemSubject = new Subject<any>();
 
   constructor() {
   }
 
-  getData(): Observable<Data[]> {
-    return of(DataService);
+  getListDataWeather(): Observable<Array<DataWeather>> {
+    for (const item of ApiDataWeather['default']) {
+      this.weatherDataArray.push(new DataWeather(item));
+    }
+    return of(this.weatherDataArray);
   }
 
-  getItemData(id: number): Observable<Data> {
-    return of(DataService.find(item => item.id === id));
+  getItemData(id: number): Observable<DataWeather> {
+    return of(this.weatherDataArray.find(item => item.id === id));
   }
-
 
 
 }

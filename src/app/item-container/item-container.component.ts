@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Data} from '../interfaces/data';
+import {DataWeather} from '../model-clasess/data';
 
 @Component({
   selector: 'app-item-container',
@@ -8,7 +8,7 @@ import {Data} from '../interfaces/data';
 })
 export class ItemContainerComponent implements OnInit {
 
-  @Input() item: Data;
+  @Input() item: DataWeather;
 
   constructor() { }
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WeatherService} from '../services/weather.service';
-import {Data} from '../interfaces/data';
+import {DataWeather} from '../model-clasess/data';
 
 @Component({
   selector: 'app-overview-details-container',
@@ -11,8 +11,8 @@ import {Data} from '../interfaces/data';
 
 export class OverviewDetailsContainerComponent implements OnInit {
 
-  weatherItemData: Data;
-  weatherListData: Data[];
+  weatherItemData: DataWeather;
+  weatherListData: Array<DataWeather> = new Array<DataWeather>();
 
   constructor(private route: ActivatedRoute,
               private weatherService: WeatherService
@@ -29,7 +29,7 @@ export class OverviewDetailsContainerComponent implements OnInit {
   }
 
   getListDataWeather(): void {
-    this.weatherService.getData().subscribe(items => this.weatherListData = items.slice(0, 5));
+    this.weatherService.getListDataWeather().subscribe(items => this.weatherListData = items.slice(0, 5));
   }
 
 }

@@ -1,16 +1,38 @@
 <div class="item-detail-container">
   <div class="container-text-image">
-    <div><h1>{{item.id}}</h1>
-      <h1>{{item.name}}</h1></div>
-    <div><img src="favicon.ico"></div>
+    <div>
+      <h1>{{item.nameCity}}</h1>
+    </div>
+    <div>
+      <img src="favicon.ico">
+    </div>
   </div>
 
   <div class="container-text-image">
-    <ul>
-      <li>{{item.id}}</li>
-      <li>{{item.name}}</li>
-      <li>{{item.name}}</li>
-    </ul>
+    <div class="row">
+      <div class="col-6">
+        <h4>Name city</h4>
+        <h4>Data</h4>
+        <h4>Main Weather</h4>
+        <h4>Description</h4>
+        <h4>Temperature</h4>
+        <h4>Min temperature</h4>
+        <h4>Max temperature</h4>
+        <h4>Wind deg</h4>
+        <h4>Wind speed</h4>
+      </div>
+      <div class="col-6">
+        <h4>{{item.nameCity}}</h4>
+        <h4>{{item.dateTime | date}}</h4>
+        <h4>{{item.weatherMain}}</h4>
+        <h4>{{item.weatherDescription}}</h4>
+        <h4>{{item.temp}}</h4>
+        <h4>{{item.tempMin}}</h4>
+        <h4>{{item.tempMax}}</h4>
+        <h4>{{item.windDeg}}</h4>
+        <h4>{{item.windSpeed}}</h4>
+      </div>
+    </div>
   </div>
 </div>
 

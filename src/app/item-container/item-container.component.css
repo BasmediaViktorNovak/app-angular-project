@@ -17,3 +17,29 @@
   background: aliceblue;
   transform: scale(1.1);
 }
+
+
+
+.header-text h1{
+  font-size: 2em;
+}
+
+.under-header-text{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+
+.col-6 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.col-6 h4{
+    font-size: 1.2em;
+}

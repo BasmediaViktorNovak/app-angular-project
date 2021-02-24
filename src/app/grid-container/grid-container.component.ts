@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather.service';
 import {PageEvent} from '@angular/material/paginator';
-import {Data} from '../interfaces/data';
+import {DataWeather} from '../model-clasess/data';
 
 @Component({
   selector: 'app-grid-container',
@@ -11,19 +11,18 @@ import {Data} from '../interfaces/data';
 
 export class GridContainerComponent implements OnInit {
 
-
-  items: Data[] = [];
-  pageSlice: Data[];
+  items: Array<DataWeather> = new Array<DataWeather>();
+  pageSlice: Array<DataWeather> = new Array<DataWeather>();
 
   constructor(private weatherService: WeatherService) {
   }
 
   ngOnInit(): void {
-    this.getData();
+    this.getListDataWeather();
   }
 
-  private getData(): void {
-    this.weatherService.getData().subscribe(items => {
+  private getListDataWeather(): void {
+    this.weatherService.getListDataWeather().subscribe(items => {
       this.items = items;
       this.pageSlice = this.items.slice(0, 4);
     });
@@ -33,7 +32,9 @@ export class GridContainerComponent implements OnInit {
     const startIndex = $event.pageIndex * $event.pageSize;
     let endIndex = startIndex + $event.pageSize;
     if (endIndex > this.items.length) {
+      console.log(this.items.length);
       endIndex = this.items.length;
+    } else {
     }
     this.pageSlice = this.items.slice(startIndex, endIndex);
   }
