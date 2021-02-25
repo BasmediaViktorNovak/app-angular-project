@@ -2,21 +2,22 @@
   <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
   <mat-card-content>
     <div class="header-text">
-<!--      <h1>{{item.}}</h1>-->
+      <h1>{{item.nameCity}}</h1>
     </div>
     <div class="under-header-text">
         <div class="col-6">
           <h4>Weather</h4>
           <h4>Temperature</h4>
+          <h4>Wind speed</h4>
           <h4>Date</h4>
         </div>
         <div class="col-6">
-<!--          <h4>{{item.currentWeather.weatherMain}}</h4>-->
-<!--          <h4>{{item.currentWeather.mainTemperature}}</h4>-->
-<!--          <h4>{{item.currentWeather.dt | date:'yyyy-MM-dd'}}</h4>-->
+          <h4>{{item.currentWeatherMain}}</h4>
+          <h4>{{item.currentTemperatureMainTemp}}</h4>
+          <h4>{{item.currentWindSpeed }}</h4>
+          <h4>{{item.currentDateTime | date:'yyyy-MM-dd'}}</h4>
         </div>
     </div>
-
 
   </mat-card-content>
   <mat-card-actions>

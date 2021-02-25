@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather.service';
 import {ActivatedRoute} from '@angular/router';
-import {TotalDataWeather} from '../model-clasess/data';
+import {DataTimeWeather} from '../model-clasess/data';
 
 @Component({
   selector: 'app-day-details-list',
@@ -10,8 +10,8 @@ import {TotalDataWeather} from '../model-clasess/data';
 })
 export class DayDetailsListComponent implements OnInit {
 
-  weatherData: Array<TotalDataWeather> = new Array<TotalDataWeather>();
-  itemWeatherData: TotalDataWeather;
+  weatherData: Array<DataTimeWeather> = new Array<DataTimeWeather>();
+  itemWeatherData: DataTimeWeather;
 
 
 
