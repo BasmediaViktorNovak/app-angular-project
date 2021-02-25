@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {DataWeather} from '../model-clasess/data';
+import {Component, OnInit, Input} from '@angular/core';
+import {TotalDataWeather} from '../model-clasess/data';
+import {WeatherService} from '../services/weather.service';
 
 @Component({
   selector: 'app-item-container',
@@ -8,11 +9,15 @@ import {DataWeather} from '../model-clasess/data';
 })
 export class ItemContainerComponent implements OnInit {
 
-  @Input() item: DataWeather;
+  @Input() item: TotalDataWeather;
+  // todayDay: DataTimeWeather;
 
-  constructor() { }
+  constructor(private weatherService: WeatherService) {
+  }
 
   ngOnInit(): void {
+    console.log('item-container', this.item);
+    // this.weatherService.getTodayWeather(this.item).subscribe(today => this.todayDay = today);
   }
 
 }

@@ -6,3 +6,9 @@
   height: auto;
   border: 3px solid orange;
 }
+
+.example-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em;
+}
