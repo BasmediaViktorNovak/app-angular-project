@@ -14,7 +14,6 @@ export class DayDetailsListComponent implements OnInit {
   itemWeatherData: DataTimeWeather;
 
 
-
   constructor(private weatherService: WeatherService,
               private activateRoute: ActivatedRoute) {
   }
@@ -23,6 +22,7 @@ export class DayDetailsListComponent implements OnInit {
     // this.weatherService.getListCoordinatesTown().subscribe(items => this.weatherData = items.slice(0, 5));
     // this.weatherData = this.weatherService.getDataTown();
     // this.selectedWeatherItem(+this.activateRoute.snapshot.paramMap.get('id'));
+    this.weatherService.getWeekDayWeatherForCoords(+this.activateRoute.snapshot.paramMap.get('id')).subscribe(items => this.weatherData = items);
   }
 
   selectedWeatherItem(id: number): void {

@@ -36,7 +36,7 @@ export class CoordinatesTown {
   currentWindDeg: number;
   currentDateTime: string;
   coordLon: string;
-  coordLat: string;
+  coordLat: string
 
   constructor(townData: any) {
     this.id = townData.id;
@@ -48,7 +48,7 @@ export class CoordinatesTown {
     this.currentTemperatureMainTempMax = townData.main.temp_max;
     this.currentWindSpeed = townData.wind.speed;
     this.currentWindDeg = townData.wind.deg;
-    this.currentDateTime = townData.dt;
+    this.currentDateTime = new Date(townData.dt * 1000).toLocaleDateString('en-US');
     this.coordLat = townData.coord.lat;
     this.coordLon = townData.coord.lon;
   }

@@ -26,7 +26,9 @@ export class OverviewDetailsContainerComponent implements OnInit {
   }
 
   getData(): void {
-    this.weatherService.getItemData(+this.route.snapshot.paramMap.get('id')).subscribe(item => this.weatherItemData = item);
+    // this.weatherService.getItemData(+this.route.snapshot.paramMap.get('id')).subscribe(item => this.weatherItemData = item);
+    console.log(+this.route.snapshot.paramMap.get('id'));
+
   }
 
   getListDataWeather(): void {

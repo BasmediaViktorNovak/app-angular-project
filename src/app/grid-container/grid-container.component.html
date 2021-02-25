@@ -2,11 +2,11 @@
   <div class="container-grid">
     <app-item-container *ngFor="let item of pageSlice"
                         [item]="item"
-                        routerLink="/overview-details/{{item.id}}"></app-item-container>
+                        routerLink="/overview-details/{{item.id}}" ></app-item-container>
   </div>
 
   <div class="pagination">
-    <mat-paginator [length]="this.items.length"
+    <mat-paginator [length]="this.countElementsTown"
                    [pageSize]="4"
                    [pageSizeOptions]="[1, 2, 3, 4, 5, 10]"
                    (page)="OnPageChange($event)">

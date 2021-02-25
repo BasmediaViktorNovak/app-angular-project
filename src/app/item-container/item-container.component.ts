@@ -1,4 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {CoordinatesTown} from '../model-clasess/data';
 
 @Component({
   selector: 'app-item-container',
@@ -7,7 +8,7 @@ import {Component, OnInit, Input} from '@angular/core';
 })
 export class ItemContainerComponent implements OnInit {
 
-  @Input() item: any;
+  @Input() item: CoordinatesTown;
 
   constructor() {
   }
