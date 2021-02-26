@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {CoordinatesTown} from '../model-clasess/data';
+import {CoordinatesTown} from '../model-clasess/coordinates-town';
 
 @Component({
   selector: 'app-item-container',

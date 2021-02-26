@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AdItem} from '../banner/ad-item';
-import {AdService} from '../banner/ad.service';
-import {AdComponent} from '../banner/ad.component';
+import {AdItem} from './banner/ad-item';
+import {AdService} from './banner/ad.service';
+import {AdComponent} from './banner/ad.component';
 
 
 @Component({

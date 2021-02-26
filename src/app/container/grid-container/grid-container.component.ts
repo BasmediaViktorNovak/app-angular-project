@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather.service';
 import {PageEvent} from '@angular/material/paginator';
-import {CoordinatesTown} from '../model-clasess/data';
+import {CoordinatesTown} from '../model-clasess/coordinates-town';
 
 @Component({
   selector: 'app-grid-container',

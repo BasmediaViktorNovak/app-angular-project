@@ -1,7 +1,7 @@
 <div class="container-day-details-list">
   <ng-container *ngFor="let item of weatherListDay">
     <div (click)="this.selectedWeatherItem(item.idWeather)">
-      <div [ngClass]="item.idWeather === this.idWeather ? 'back': ''">
+      <div [ngClass]="item.idWeather === this.idWeather ? 'background-item-day': ''">
         <app-day-detail-item
           [item]="item"
         ></app-day-detail-item>

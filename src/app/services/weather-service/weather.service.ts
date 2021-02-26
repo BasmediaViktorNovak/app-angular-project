@@ -1,14 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Observable, of, Subject} from 'rxjs';
-import {CoordinatesTown, DataTimeWeather} from '../model-clasess/data';
+import {DataTimeWeather} from '../model-clasess/data-time-weather';
 import {ARRAY_TOWN} from '../array-town/array-town';
 import {HttpClient} from '@angular/common/http';
+import {CoordinatesTown} from '../model-clasess/coordinates-town';
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class WeatherService {
+
+  domainName = 'http://api.openweathermap.org';
+  parameters = '/data/2.5';
+  somewhereAnchor = '&appid=08288f94e8758e1982d73e4865e2895f';
 
   todayWeather: Subject<DataTimeWeather> = new Subject<DataTimeWeather>();
   town: Subject<CoordinatesTown> = new Subject<CoordinatesTown>();
@@ -34,7 +40,8 @@ export class WeatherService {
 
     const dataArray = new Array<CoordinatesTown>();
     ARRAY_TOWN.slice(startIndex, endIndex).map(value => {
-      this.http.get<CoordinatesTown>(`http://api.openweathermap.org/data/2.5/weather?q=${value}&appid=08288f94e8758e1982d73e4865e2895f`)
+      this.http.get<CoordinatesTown>(this.domainName
+        + this.parameters + `/weather?q=${value}` + this.somewhereAnchor)
         .subscribe(item => {
           dataArray.push(new CoordinatesTown(item));
         });
@@ -45,7 +52,8 @@ export class WeatherService {
 
 
   getSingleCoordinatesTown(idTown: number): Observable<CoordinatesTown> {
-    return this.http.get<CoordinatesTown>(`http://api.openweathermap.org/data/2.5/weather?id=${idTown}&appid=08288f94e8758e1982d73e4865e2895f`);
+    return this.http.get<CoordinatesTown>(this.domainName
+      + this.parameters + `/weather?id=${idTown}` + this.somewhereAnchor);
   }
 
 
@@ -62,10 +70,9 @@ export class WeatherService {
         coordinateLon = items.coordLon;
       });
     }
-    return this.http.get<DataTimeWeather>(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinateLat}&lon=${coordinateLon}&exclude=minutely,hourly&appid=08288f94e8758e1982d73e4865e2895f`);
+    return this.http.get<DataTimeWeather>(this.domainName + this.parameters
+      + `/onecall?lat=${coordinateLat}&lon=${coordinateLon}&exclude=minutely,hourly` + this.somewhereAnchor);
   }
-
-
 
 
 }
