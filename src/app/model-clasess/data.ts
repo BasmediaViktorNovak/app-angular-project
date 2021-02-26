@@ -1,4 +1,5 @@
 export class DataTimeWeather {
+  idWeather: number;
   dt: string;
   temperatureDay?: number;
   mainTemperatureMin?: number;
@@ -9,7 +10,8 @@ export class DataTimeWeather {
   windSpeed: number;
   windDeg: number;
 
-  constructor(dataTimeWeatherResponse: any) {
+  constructor(idWeather: number, dataTimeWeatherResponse: any) {
+    this.idWeather = idWeather;
     this.dt = new Date(dataTimeWeatherResponse.dt * 1000).toLocaleDateString('en-US');
     this.weatherMain = dataTimeWeatherResponse.weather[0].main;
     this.weatherDescription = dataTimeWeatherResponse.weather[0].description;
@@ -19,9 +21,9 @@ export class DataTimeWeather {
     this.temperatureDay = dataTimeWeatherResponse.temp.day;
     this.mainTemperatureMin = dataTimeWeatherResponse.temp.min;
     this.mainTemperatureMax = dataTimeWeatherResponse.temp.max;
+
   }
 }
-
 
 
 export class CoordinatesTown {
@@ -35,8 +37,8 @@ export class CoordinatesTown {
   currentWindSpeed: number;
   currentWindDeg: number;
   currentDateTime: string;
-  coordLon: string;
-  coordLat: string
+  coordLon: number;
+  coordLat: number;
 
   constructor(townData: any) {
     this.id = townData.id;
@@ -54,5 +56,15 @@ export class CoordinatesTown {
   }
 }
 
+
+export class TotalDataWeather {
+  dataTimeWeather: Array<DataTimeWeather>;
+  coordinatesTown: CoordinatesTown;
+
+  constructor(dataTimeWeather: Array<DataTimeWeather>, coordinatesTown: CoordinatesTown) {
+    this.dataTimeWeather = dataTimeWeather;
+    this.coordinatesTown = coordinatesTown;
+  }
+}
 
 

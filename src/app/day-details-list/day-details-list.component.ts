@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather.service';
 import {ActivatedRoute} from '@angular/router';
 import {DataTimeWeather} from '../model-clasess/data';
@@ -10,24 +10,22 @@ import {DataTimeWeather} from '../model-clasess/data';
 })
 export class DayDetailsListComponent implements OnInit {
 
-  weatherData: Array<DataTimeWeather> = new Array<DataTimeWeather>();
-  itemWeatherData: DataTimeWeather;
+  weatherListDay: Array<DataTimeWeather> = new Array<DataTimeWeather>();
+  idWeather: number;
 
-
-  constructor(private weatherService: WeatherService,
-              private activateRoute: ActivatedRoute) {
+  constructor(private weatherService: WeatherService) {
+    this.weatherService.listDataTimeWeatherSubj.subscribe(items => {
+      this.weatherListDay = items;
+      this.selectedWeatherItem();
+    });
   }
 
   ngOnInit(): void {
-    // this.weatherService.getListCoordinatesTown().subscribe(items => this.weatherData = items.slice(0, 5));
-    // this.weatherData = this.weatherService.getDataTown();
-    // this.selectedWeatherItem(+this.activateRoute.snapshot.paramMap.get('id'));
-    this.weatherService.getWeekDayWeatherForCoords(+this.activateRoute.snapshot.paramMap.get('id')).subscribe(items => this.weatherData = items);
   }
 
-  selectedWeatherItem(id: number): void {
-    // this.weatherService.getItemData(id).subscribe(item => this.itemWeatherData = item);
-    // this.weatherService.dayItemSubject.next(this.itemWeatherData);
+  selectedWeatherItem(idWeather: number = 1): void {
+    this.idWeather = idWeather;
+    this.weatherService.todayWeather.next(this.weatherListDay.find(item => item.idWeather === idWeather));
   }
 
 

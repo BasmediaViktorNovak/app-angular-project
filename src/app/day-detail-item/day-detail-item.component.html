@@ -1,23 +1,22 @@
-<div [ngClass]="{'back' : this.selectedItem === item}">
-  <mat-card class="example-card">
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <div class="header-text">
-<!--        {{item.id}}-->
+<mat-card class="example-card">
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <div class="header-text">
+      Date {{item.dt | date: "dd/MM/YYYY" }}
+    </div>
+    <div class="under-header-text">
+      <div class="col-6">
+        <h4>Temp</h4>
+        <h4>Weat</h4>
       </div>
-      <div class="under-header-text">
-        <div class="col-6">
-          <h4>Data</h4>
-          <h4>Main Weather</h4>
-        </div>
-        <div class="col-6">
-<!--          <h4>{{item.id }}</h4>-->
-<!--          <h4>{{item.nameCity}}</h4>-->
-        </div>
+      <div class="col-6">
+        <h4>{{item.temperatureDay}}</h4>
+        <h4>{{item.weatherMain }}<p>{{item.weatherDescription }}</p></h4>
+
       </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+    </div>
+  </mat-card-content>
+</mat-card>
 
 
 

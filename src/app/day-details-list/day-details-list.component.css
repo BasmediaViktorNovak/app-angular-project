@@ -1,22 +1,26 @@
 .container-day-details-list{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   grid-auto-rows: minmax(100px, auto);
-  grid-gap: 2.5em;
+  grid-gap: 2em;
   border: 3px solid green;
-  width: 95%;
+  width: 100%;
+  height: auto;
   margin: 1em auto;
 }
-
 
 .selected{
   background-color: red;
 }
 
+.back{
+  background-color: aqua;
+}
 
 
-@media (max-width: 1400px) {
+@media (max-width: 1500px) {
   .container-day-details-list{
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
+

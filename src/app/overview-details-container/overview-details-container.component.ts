@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WeatherService} from '../services/weather.service';
-import {DataTimeWeather} from '../model-clasess/data';
 import {Location} from '@angular/common';
+import {CoordinatesTown, DataTimeWeather} from '../model-clasess/data';
 
 @Component({
   selector: 'app-overview-details-container',
@@ -12,7 +12,10 @@ import {Location} from '@angular/common';
 
 export class OverviewDetailsContainerComponent implements OnInit {
 
-  weatherItemData: DataTimeWeather;
+  town: CoordinatesTown;
+  todayWeather: DataTimeWeather;
+  weatherListDay: Array<DataTimeWeather> = new Array<DataTimeWeather>();
+
 
   constructor(private route: ActivatedRoute,
               private weatherService: WeatherService,
@@ -21,18 +24,26 @@ export class OverviewDetailsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();
-    this.getListDataWeather();
+    this.getTown();
+    this.getListWeatherDay();
   }
 
-  getData(): void {
-    // this.weatherService.getItemData(+this.route.snapshot.paramMap.get('id')).subscribe(item => this.weatherItemData = item);
-    console.log(+this.route.snapshot.paramMap.get('id'));
-
+  getTown(): void {
+    this.weatherService.getSingleCoordinatesTown(+this.route.snapshot.paramMap.get('id'))
+      .subscribe(item => {
+          this.weatherService.town.next(new CoordinatesTown(item));
+        }
+      );
   }
 
-  getListDataWeather(): void {
+  getListWeatherDay(): void {
+    this.weatherService.getWeekDayWeatherForCoords(+this.route.snapshot.paramMap.get('id'))
+      .subscribe(item => {
+        item['daily'].map((val, idx) => this.weatherListDay.push(new DataTimeWeather(idx + 1, val)));
+        this.weatherService.listDataTimeWeatherSubj.next(this.weatherListDay);
+      });
   }
+
 
   OnMainPage(): void {
     this.location.go('/');

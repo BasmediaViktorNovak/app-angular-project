@@ -19,10 +19,7 @@
 }
 
 .under-header-text {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
@@ -34,16 +31,15 @@
 }
 
 .col-6 h4{
-  font-size: 1.2em;
+  font-size: 1.1rem;
 }
 
 .header-text{
-  font-size: 2em;
+  font-size: 1.5rem;
   margin: 1em 0;
 }
 
 
-.back{
-  background-color: aqua;
-}
+
+
 

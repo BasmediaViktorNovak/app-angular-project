@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
-import {concat, forkJoin, from, Observable, of, Subject, timer} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {CoordinatesTown, DataTimeWeather} from '../model-clasess/data';
 import {ARRAY_TOWN} from '../array-town/array-town';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {concatMap, delay, filter, find, map, mergeMap, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +10,13 @@ import {concatMap, delay, filter, find, map, mergeMap, tap} from 'rxjs/operators
 
 export class WeatherService {
 
-  dayItemSubject: Subject<DataTimeWeather> = new Subject<DataTimeWeather>();
+  todayWeather: Subject<DataTimeWeather> = new Subject<DataTimeWeather>();
+  town: Subject<CoordinatesTown> = new Subject<CoordinatesTown>();
+  listDataTimeWeatherSubj: Subject<Array<DataTimeWeather>> = new Subject<Array<DataTimeWeather>>();
 
 
+  dataTimeWeatherSingle: DataTimeWeather;
   coordinatesTown: Array<CoordinatesTown> = new Array<CoordinatesTown>();
-  coordinateTownSingle: CoordinatesTown;
-  dataTimeWeather: Array<DataTimeWeather> = new Array<DataTimeWeather>();
-
-
-  coordinatesTownObs: Observable<CoordinatesTown> = new Observable<CoordinatesTown>();
-  dataTimeWeatherObs: Observable<DataTimeWeather> = new Observable<DataTimeWeather>();
 
 
   constructor(private http: HttpClient) {
@@ -44,74 +39,33 @@ export class WeatherService {
           dataArray.push(new CoordinatesTown(item));
         });
     });
+    this.coordinatesTown = dataArray;
     return of(dataArray);
   }
 
 
+  getSingleCoordinatesTown(idTown: number): Observable<CoordinatesTown> {
+    return this.http.get<CoordinatesTown>(`http://api.openweathermap.org/data/2.5/weather?id=${idTown}&appid=08288f94e8758e1982d73e4865e2895f`);
+  }
 
 
-  getWeekDayWeatherForCoords(idTown: number): Observable<Array<DataTimeWeather>> {
-    const res = this.coordinatesTown.find(x => x.id === idTown);
-    console.log('coordinateTownSingle', res);
-    const dataTimeWeather = new Array<DataTimeWeather>();
-    this.http.get<CoordinatesTown>(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.coordinateTownSingle.coordLat}&
-        lon=${this.coordinateTownSingle.coordLon}&exclude=minutely,hourly&appid=08288f94e8758e1982d73e4865e2895f`)
-      .subscribe(item => {
-        dataTimeWeather.push(new DataTimeWeather(item));
+  getWeekDayWeatherForCoords(idTown: number): Observable<DataTimeWeather> {
+    // tslint:disable-next-line:one-variable-per-declaration prefer-const
+    let coordinateLat = 0, coordinateLon = 0;
+    if (typeof this.coordinatesTown !== 'undefined' && this.coordinatesTown.length > 0) {
+      const findTown = this.coordinatesTown.find(town => town.id === idTown);
+      coordinateLat = findTown.coordLat;
+      coordinateLon = findTown.coordLat;
+    } else {
+      this.getSingleCoordinatesTown(idTown).subscribe(items => {
+        coordinateLat = items.coordLat;
+        coordinateLon = items.coordLon;
       });
-
-    // this.getCoordinatesTownArray().pipe(
-    //   // filter(x => x.id === itemCoordinates.id),
-    //   delay(500),
-    // ).subscribe(itemArray => {
-    //   console.log('itemArray', itemArray);
-    // });
-    return of(dataTimeWeather);
+    }
+    return this.http.get<DataTimeWeather>(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinateLat}&lon=${coordinateLon}&exclude=minutely,hourly&appid=08288f94e8758e1982d73e4865e2895f`);
   }
 
 
-  // getDataTown(): void {
-  //   for (const itemTown of ARRAY_TOWN) {
-  //     this.getCoordinatesTown(itemTown).subscribe(item => {
-  //       console.log('item', item);
-  //       this.coordinatesTown.push(item);
-  //       this.getDataWeatherDays(item.coordLat, item.coordLon).subscribe(itemWeatherDay => {
-  //           console.log('itemWeatherDay', itemWeatherDay);
-  //           this.dataTimeWeather.push(new DataTimeWeather(itemWeatherDay));
-  //         }
-  //       );
-  //     });
-  //   }
-  // }
-
-  // getDataTimeWeatherArray(coordinatesTown: Array<CoordinatesTown>): Observable<Array<TotalDataTimeWeather>> {
-  //   const dataTimeWeather = new Array<TotalDataTimeWeather>();
-  //
-  //   coordinatesTown.map(value => {
-  //     this.http.get<CoordinatesTown>(`https://api.openweathermap.org/data/2.5/onecall?lat=${value.coordLat}&lon=${value.coordLon}&exclude=minutely,hourly&appid=08288f94e8758e1982d73e4865e2895f`)
-  //       .subscribe(item => {
-  //         dataTimeWeather.push(new TotalDataTimeWeather(value, item));
-  //       });
-  //   });
-  //
-  //   return of(dataTimeWeather);
-  // }
-
-
-  // getListTotalDataTimeWeather(): Observable<Array<TotalDataTimeWeather>> {
-  //   return of(this.totalDataTimeWeather);
-  // }
-
-  // getDataTownObs(): void {
-  //   this.getCoordinatesTownArray().pipe(delay(2000)).subscribe(ii => {
-  //     this.getDataTimeWeatherArray(ii).pipe(delay(2000)).subscribe(ij => this.totalDataTimeWeather = ij);
-  //   });
-  // }
-
-
-  getItemData(id: number): Observable<DataTimeWeather> {
-    return of(this.dataTimeWeather.find(item => +item.dt === id));
-  }
 
 
 }

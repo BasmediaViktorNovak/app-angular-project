@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather.service';
-import {DataTimeWeather} from '../model-clasess/data';
+import {CoordinatesTown, DataTimeWeather} from '../model-clasess/data';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -9,15 +9,15 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./item-details.component.css']
 })
 export class ItemDetailsComponent implements OnInit {
-  item: DataTimeWeather;
+  town: CoordinatesTown;
+  todayWeather: DataTimeWeather;
 
-  constructor(private weatherService: WeatherService,
-              private route: ActivatedRoute) {
-    this.weatherService.dayItemSubject.subscribe(dayItem => this.item = dayItem);
+  constructor(private weatherService: WeatherService) {
+    this.weatherService.town.subscribe(town => this.town = town);
+    this.weatherService.todayWeather.subscribe(item => this.todayWeather = item);
   }
 
   ngOnInit(): void {
-    // this.weatherService.getWeekDayWeatherForCoords(+this.route.snapshot.paramMap.get('id')).subscribe(item => this.item = item);
   }
 
 }

@@ -1,37 +1,44 @@
-<div class="item-detail-container">
-  <div class="container-text-image">
-<!--    <h1>{{item.nameCity}}</h1>-->
-    <div>
-      <img src="favicon.ico">
+<ng-container *ngIf="town">
+  <div class="item-detail-container">
+    <div class="container-text-image">
+      <div>
+        <h1>
+          {{town.nameCity}}
+        </h1>
+      </div>
+      <div>
+        <img src="favicon.ico">
+      </div>
     </div>
-  </div>
+    <div class="container-text-image">
+      <ng-container *ngIf="todayWeather">
+        <div class="row">
+          <div class="col-6">
+            <h4>Date</h4>
+            <h4>Main Weather</h4>
+            <h4>Description</h4>
+            <h4>Temperature</h4>
+            <h4>Min temperature</h4>
+            <h4>Max temperature</h4>
+            <h4>Wind deg</h4>
+            <h4>Wind speed</h4>
+          </div>
+          <div class="col-6">
+            <h4>{{todayWeather.dt | date: 'dd/MM/YYYY'}}</h4>
+            <h4>{{todayWeather.weatherMain}}</h4>
+            <h4>{{todayWeather.weatherDescription}}</h4>
+            <h4>{{todayWeather.temperatureDay}}</h4>
+            <h4>{{todayWeather.mainTemperatureMin}}</h4>
+            <h4>{{todayWeather.mainTemperatureMax}}</h4>
+            <h4>{{todayWeather.windDeg}}</h4>
+            <h4>{{todayWeather.windSpeed}}</h4>
+          </div>
+        </div>
 
-  <div class="container-text-image">
-    <div class="row">
-      <div class="col-6">
-        <h4>Name city</h4>
-        <h4>Data</h4>
-        <h4>Main Weather</h4>
-        <h4>Description</h4>
-        <h4>Temperature</h4>
-        <h4>Min temperature</h4>
-        <h4>Max temperature</h4>
-        <h4>Wind deg</h4>
-        <h4>Wind speed</h4>
-      </div>
-      <div class="col-6">
-<!--        <h4>{{item.nameCity}}</h4>-->
-<!--        <h4>{{item.dateTime | date}}</h4>-->
-<!--        <h4>{{item.weatherMain}}</h4>-->
-<!--        <h4>{{item.weatherDescription}}</h4>-->
-<!--        <h4>{{item.temp}}</h4>-->
-<!--        <h4>{{item.tempMin}}</h4>-->
-<!--        <h4>{{item.tempMax}}</h4>-->
-<!--        <h4>{{item.windDeg}}</h4>-->
-<!--        <h4>{{item.windSpeed}}</h4>-->
-      </div>
+      </ng-container>
     </div>
   </div>
-</div>
+</ng-container>
+
 
 

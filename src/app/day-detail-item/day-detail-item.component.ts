@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather.service';
-import {ActivatedRoute} from '@angular/router';
 import {DataTimeWeather} from '../model-clasess/data';
 
 @Component({
@@ -10,22 +9,10 @@ import {DataTimeWeather} from '../model-clasess/data';
 })
 export class DayDetailItemComponent implements OnInit {
   @Input() item: DataTimeWeather;
-  selectedItem: DataTimeWeather;
-  id: number;
 
-  constructor(public weatherService: WeatherService,
-              private activatedRoute: ActivatedRoute) {
-    this.weatherService.dayItemSubject.subscribe(dayItem => this.selectedItem = dayItem);
+  constructor(public weatherService: WeatherService) {
   }
 
   ngOnInit(): void {
-    // this.selectedFunction();
   }
-
-  // selectedFunction(): void {
-  //   const id = +this.activatedRoute.snapshot.paramMap.get('id');
-  //   this.weatherService.getItemData(id).subscribe(item => this.selectedItem = item);
-  // }
-
-
 }
