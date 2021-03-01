@@ -1,0 +1,26 @@
+<div *ngFor="let item of pageSliceSubj">
+  <mat-card class="example-card" routerLink="/overview-details/{{item.id}}">
+    <div class="grid-contain">
+      <div>
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      </div>
+      <div>
+        <h1 class="header-text">{{item.nameCity}}</h1>
+        <div class="grid-text-contain">
+          <div>
+            <h4>Weather</h4>
+            <h4>Temperature</h4>
+            <h4>Wind speed</h4>
+            <h4>Date</h4>
+          </div>
+          <div>
+            <h4>{{item.currentWeatherMain}}</h4>
+            <h4>{{item.currentTemperatureMainTemp}}</h4>
+            <h4>{{item.currentWindSpeed }}</h4>
+            <h4>{{item.currentDateTime | date}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

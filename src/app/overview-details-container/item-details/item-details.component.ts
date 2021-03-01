@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {WeatherService} from '../services/weather.service';
-import {CoordinatesTown} from '../model-clasess/coordinates-town';
-import {DataTimeWeather} from '../model-clasess/data-time-weather';
+import {WeatherService} from '../../services/weather-service/weather.service';
+import {CoordinatesTown} from '../../model-clasess/coordinates-town';
+import {DataTimeWeather} from '../../model-clasess/data-time-weather';
 
 @Component({
   selector: 'app-item-details',

@@ -1,30 +1,30 @@
 import {NgModule} from '@angular/core';
-import {ContainerRoutingModule} from './container-routing.module';
-import {MaterialModule} from '../material/material.module';
-import {CommonModule} from '@angular/common';
-import {HeaderContainerComponent} from '../header-container/header-container.component';
 import {ContainerComponent} from './container.component';
-import {ItemContainerComponent} from '../item-container/item-container.component';
-import {GridContainerComponent} from '../grid-container/grid-container.component';
-import {HeaderContainerModule} from '../header-container/header-container.module';
-import {FormsModule} from "@angular/forms";
-
-
+import {HeaderContainerComponent} from './header-container/header-container.component';
+import {GridContainerComponent} from './grid-container/grid-container.component';
+import {ItemContainerComponent} from './grid-container/item-container/item-container.component';
+import {ContainerRoutingModule} from './container-routing.module';
+import {MaterialModule} from '../material-angular-ui/material.module';
+import {CommonModule} from '@angular/common';
+import {HeaderContainerModule} from './header-container/header-container.module';
+import {FormsModule} from '@angular/forms';
+import {ItemListContainerComponent} from './grid-container/item-list-container/item-list-container.component';
 
 @NgModule({
   declarations: [
     ContainerComponent,
     HeaderContainerComponent,
     GridContainerComponent,
-    ItemContainerComponent
+    ItemContainerComponent,
+    ItemListContainerComponent
   ],
-    imports: [
-        ContainerRoutingModule,
-        MaterialModule,
-        CommonModule,
-        HeaderContainerModule,
-        FormsModule
-    ],
+  imports: [
+    ContainerRoutingModule,
+    MaterialModule,
+    CommonModule,
+    HeaderContainerModule,
+    FormsModule
+  ],
   providers: []
 })
 export class ContainerModule {

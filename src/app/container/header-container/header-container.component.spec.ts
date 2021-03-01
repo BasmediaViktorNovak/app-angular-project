@@ -1,16 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HeaderContainerComponent } from './header-container.component';
+import {HeaderContainerComponent} from './header-container.component';
+import {AdService} from "./banner/ad.service";
 
-describe('HeaderContainerComponent', () => {
+fdescribe('HeaderContainerComponent', () => {
   let component: HeaderContainerComponent;
   let fixture: ComponentFixture<HeaderContainerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderContainerComponent ]
+      declarations: [HeaderContainerComponent],
+      providers: [AdService]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -22,4 +24,6 @@ describe('HeaderContainerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 });

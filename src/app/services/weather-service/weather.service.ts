@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable, of, Subject} from 'rxjs';
-import {DataTimeWeather} from '../model-clasess/data-time-weather';
-import {ARRAY_TOWN} from '../array-town/array-town';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {DataTimeWeather} from '../../model-clasess/data-time-weather';
+import {ARRAY_TOWN} from '../../array-town/array-town';
 import {HttpClient} from '@angular/common/http';
-import {CoordinatesTown} from '../model-clasess/coordinates-town';
+import {CoordinatesTown} from '../../model-clasess/coordinates-town';
+import {ItemContainerComponent} from '../../container/grid-container/item-container/item-container.component';
 
 
 @Injectable({
@@ -20,9 +21,13 @@ export class WeatherService {
   town: Subject<CoordinatesTown> = new Subject<CoordinatesTown>();
   listDataTimeWeatherSubj: Subject<Array<DataTimeWeather>> = new Subject<Array<DataTimeWeather>>();
 
+  pageSliceSubj: BehaviorSubject<Array<CoordinatesTown>> = new BehaviorSubject<Array<CoordinatesTown>>([]);
+
 
   dataTimeWeatherSingle: DataTimeWeather;
   coordinatesTown: Array<CoordinatesTown> = new Array<CoordinatesTown>();
+
+  renderingComponentSubj: BehaviorSubject<any> = new BehaviorSubject<any>(ItemContainerComponent);
 
 
   constructor(private http: HttpClient) {
@@ -33,7 +38,7 @@ export class WeatherService {
     return of(ARRAY_TOWN.length);
   }
 
-  getPaginatorElementsTown(pageIndex: number = 0, numberOfElements: number = 4): Observable<Array<CoordinatesTown>> {
+  getPaginatorElementsTown(pageIndex: number = 0, numberOfElements: number = 4 ): Observable<Array<CoordinatesTown>> {
     const startIndex = pageIndex * numberOfElements;
     let endIndex = startIndex + numberOfElements;
     endIndex = endIndex > ARRAY_TOWN.length ? ARRAY_TOWN.length : endIndex;

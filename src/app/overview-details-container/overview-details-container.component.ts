@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {WeatherService} from '../services/weather.service';
-import {Location} from '@angular/common';
-import {CoordinatesTown, DataTimeWeather} from '../model-clasess/data';
+import {ActivatedRoute, Router} from '@angular/router';
+import {WeatherService} from '../services/weather-service/weather.service';
+import {CoordinatesTown} from '../model-clasess/coordinates-town';
+import {DataTimeWeather} from '../model-clasess/data-time-weather';
 
 @Component({
   selector: 'app-overview-details-container',
@@ -19,16 +19,16 @@ export class OverviewDetailsContainerComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private weatherService: WeatherService,
-              private location: Location
+              private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.getTown();
-    this.getListWeatherDay();
+    this.getSingleCoordinatesTown();
+    this.getWeekDayWeatherForCoords();
   }
 
-  getTown(): void {
+  getSingleCoordinatesTown(): void {
     this.weatherService.getSingleCoordinatesTown(+this.route.snapshot.paramMap.get('id'))
       .subscribe(item => {
           this.weatherService.town.next(new CoordinatesTown(item));
@@ -36,16 +36,17 @@ export class OverviewDetailsContainerComponent implements OnInit {
       );
   }
 
-  getListWeatherDay(): void {
+  getWeekDayWeatherForCoords(): void {
     this.weatherService.getWeekDayWeatherForCoords(+this.route.snapshot.paramMap.get('id'))
       .subscribe(item => {
-        item['daily'].map((val, idx) => this.weatherListDay.push(new DataTimeWeather(idx + 1, val)));
+        // @ts-ignore
+        item.daily.map((val, idx) => this.weatherListDay.push(new DataTimeWeather(idx + 1, val)));
         this.weatherService.listDataTimeWeatherSubj.next(this.weatherListDay);
       });
   }
 
 
-  OnMainPage(): void {
-    this.location.go('/');
+  navigateOnMainPage(): void {
+    this.router.navigateByUrl('/');
   }
 }

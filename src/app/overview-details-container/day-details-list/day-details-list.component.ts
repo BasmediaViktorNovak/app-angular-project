@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WeatherService} from '../services/weather.service';
+import {WeatherService} from '../../services/weather-service/weather.service';
 import {ActivatedRoute} from '@angular/router';
-import {DataTimeWeather} from '../model-clasess/data-time-weather';
+import {DataTimeWeather} from '../../model-clasess/data-time-weather';
 
 @Component({
   selector: 'app-day-details-list',

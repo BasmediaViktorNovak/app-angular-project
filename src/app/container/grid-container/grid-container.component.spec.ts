@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GridContainerComponent } from './grid-container.component';
+import {GridContainerComponent} from './grid-container.component';
 
 describe('GridContainerComponent', () => {
   let component: GridContainerComponent;
@@ -8,9 +8,9 @@ describe('GridContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GridContainerComponent ]
+      declarations: [GridContainerComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -21,5 +21,9 @@ describe('GridContainerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have a count elements town than 5', () => {
+    expect(component.countElementsTown).toBeGreaterThan(5);
   });
 });

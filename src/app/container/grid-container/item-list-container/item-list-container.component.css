@@ -1,10 +1,7 @@
-.container-grid {
-  display: grid;
-  grid-gap: 3em;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(100px, auto);
+.mat-card {
+  width: auto;
+  margin: 2em;
 }
-
 
 .example-card {
   padding: 30px;
@@ -16,18 +13,16 @@
   transition: 1s;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
-
 .example-card:hover {
   background: aliceblue;
   transform: scale(1.1);
 }
 
-.header-text h1 {
-  font-size: 2em;
+
+.grid-contain {
+  display: grid;
+  grid-template-columns: 40em auto;
+  grid-gap: 1.5em;
 }
 
 .grid-text-contain {
@@ -36,18 +31,26 @@
   grid-gap: 1.5em;
 }
 
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.header-text {
+  font-size: 2rem;
+}
+
 h4 {
   font-size: 1.5rem;
 }
 
+
 @media (max-width: 1400px) {
-  .container-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  .grid-contain {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1.5fr));
   }
 
   .grid-text-contain {
     grid-template-columns: auto auto;
   }
 }
-
-

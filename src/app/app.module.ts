@@ -3,10 +3,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {MaterialModule} from './material/material.module';
-import {WeatherService} from './services/weather.service';
+import {MaterialModule} from './material-angular-ui/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
+import {WeatherService} from './services/weather-service/weather.service';
 
 
 @NgModule({

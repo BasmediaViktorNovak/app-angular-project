@@ -3,12 +3,11 @@ import {CoordinatesTown} from '../../../model-clasess/coordinates-town';
 import {WeatherService} from '../../../services/weather-service/weather.service';
 
 @Component({
-  selector: 'app-item-container',
-  templateUrl: './item-container.component.html',
-  styleUrls: ['./item-container.component.css']
+  selector: 'app-item-list-container',
+  templateUrl: './item-list-container.component.html',
+  styleUrls: ['./item-list-container.component.css']
 })
-export class ItemContainerComponent implements OnInit {
-
+export class ItemListContainerComponent implements OnInit {
   pageSliceSubj: CoordinatesTown[];
 
   constructor(private weatherService: WeatherService) {
