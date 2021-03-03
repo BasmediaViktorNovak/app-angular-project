@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DayDetailItemComponent } from './day-detail-item.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {DayDetailItemComponent} from './day-detail-item.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {MaterialModule} from '../../../material-angular-ui/material.module';
 
 describe('DayDetailItemComponent', () => {
   let component: DayDetailItemComponent;
@@ -8,9 +9,11 @@ describe('DayDetailItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DayDetailItemComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [DayDetailItemComponent],
+      providers: [MaterialModule]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -20,6 +23,6 @@ describe('DayDetailItemComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {WeatherService} from '../../../services/weather-service/weather.service';
+import {Component, Input} from '@angular/core';
 import {DataTimeWeather} from '../../../model-clasess/data-time-weather';
 
 @Component({
@@ -7,12 +6,10 @@ import {DataTimeWeather} from '../../../model-clasess/data-time-weather';
   templateUrl: './day-detail-item.component.html',
   styleUrls: ['./day-detail-item.component.css']
 })
-export class DayDetailItemComponent implements OnInit {
+export class DayDetailItemComponent  {
   @Input() item: DataTimeWeather;
 
-  constructor(public weatherService: WeatherService) {
+  constructor() {
   }
 
-  ngOnInit(): void {
-  }
 }

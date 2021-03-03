@@ -5,6 +5,7 @@ import {ARRAY_TOWN} from '../../array-town/array-town';
 import {HttpClient} from '@angular/common/http';
 import {CoordinatesTown} from '../../model-clasess/coordinates-town';
 import {ItemContainerComponent} from '../../container/grid-container/item-container/item-container.component';
+import {catchError, tap} from "rxjs/operators";
 
 
 @Injectable({
@@ -38,21 +39,17 @@ export class WeatherService {
     return of(ARRAY_TOWN.length);
   }
 
-  getPaginatorElementsTown(pageIndex: number = 0, numberOfElements: number = 4 ): Observable<Array<CoordinatesTown>> {
+  getPaginatorElementsTown(pageIndex: number = 0, numberOfElements: number = 4): Observable<Array<CoordinatesTown>> {
     const startIndex = pageIndex * numberOfElements;
     let endIndex = startIndex + numberOfElements;
     endIndex = endIndex > ARRAY_TOWN.length ? ARRAY_TOWN.length : endIndex;
 
-    const dataArray = new Array<CoordinatesTown>();
+    this.coordinatesTown = [];
     ARRAY_TOWN.slice(startIndex, endIndex).map(value => {
-      this.http.get<CoordinatesTown>(this.domainName
-        + this.parameters + `/weather?q=${value}` + this.somewhereAnchor)
-        .subscribe(item => {
-          dataArray.push(new CoordinatesTown(item));
-        });
+      this.http.get<CoordinatesTown>(this.domainName + this.parameters + `/weather?q=${value}` + this.somewhereAnchor)
+        .subscribe(item => this.coordinatesTown.push(new CoordinatesTown(item)));
     });
-    this.coordinatesTown = dataArray;
-    return of(dataArray);
+    return of(this.coordinatesTown);
   }
 
 
@@ -62,9 +59,9 @@ export class WeatherService {
   }
 
 
-  getWeekDayWeatherForCoords(idTown: number): Observable<DataTimeWeather> {
+  getWeekDayWeatherForCoords(idTown: number = 1): Observable<DataTimeWeather> {
     // tslint:disable-next-line:one-variable-per-declaration prefer-const
-    let coordinateLat = 0, coordinateLon = 0;
+    let coordinateLat, coordinateLon;
     if (typeof this.coordinatesTown !== 'undefined' && this.coordinatesTown.length > 0) {
       const findTown = this.coordinatesTown.find(town => town.id === idTown);
       coordinateLat = findTown.coordLat;
@@ -75,8 +72,7 @@ export class WeatherService {
         coordinateLon = items.coordLon;
       });
     }
-    return this.http.get<DataTimeWeather>(this.domainName + this.parameters
-      + `/onecall?lat=${coordinateLat}&lon=${coordinateLon}&exclude=minutely,hourly` + this.somewhereAnchor);
+    return this.http.get<DataTimeWeather>(this.domainName + this.parameters + `/onecall?lat=${coordinateLat}&lon=${coordinateLon}&exclude=minutely,hourly` + this.somewhereAnchor);
   }
 
 

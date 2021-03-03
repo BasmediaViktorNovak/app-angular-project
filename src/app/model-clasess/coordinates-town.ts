@@ -9,8 +9,8 @@ export class CoordinatesTown {
   currentWindSpeed: number;
   currentWindDeg: number;
   currentDateTime: string;
-  coordLon: number;
-  coordLat: number;
+  coordLon: string;
+  coordLat: string;
 
   constructor(townData: any) {
     this.id = townData.id;

@@ -13,11 +13,11 @@ import {ItemListContainerComponent} from './item-list-container/item-list-contai
 
 export class GridContainerComponent implements OnInit {
 
-  items: Array<CoordinatesTown> = new Array<CoordinatesTown>();
-  pageSlice: Array<CoordinatesTown> = new Array<CoordinatesTown>();
+  items: Array<CoordinatesTown>;
+  pageSlice: Array<CoordinatesTown>;
   countElementsTown: number;
   changeComponent: any;
-  isChangeComponent: boolean;
+  isChangeComponent = true;
 
 
   constructor(private weatherService: WeatherService) {

@@ -30,10 +30,7 @@ export class OverviewDetailsContainerComponent implements OnInit {
 
   getSingleCoordinatesTown(): void {
     this.weatherService.getSingleCoordinatesTown(+this.route.snapshot.paramMap.get('id'))
-      .subscribe(item => {
-          this.weatherService.town.next(new CoordinatesTown(item));
-        }
-      );
+      .subscribe(item => this.weatherService.town.next(new CoordinatesTown(item)));
   }
 
   getWeekDayWeatherForCoords(): void {
