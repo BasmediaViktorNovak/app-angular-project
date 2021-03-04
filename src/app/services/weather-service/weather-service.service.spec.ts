@@ -1,9 +1,7 @@
 import {WeatherService} from './weather.service';
 import {CoordinatesTown} from '../../model-clasess/coordinates-town';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {asyncData, asyncError} from '../../../testing/async-observable-helpers';
-import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {asyncData} from '../../../testing/async-observable-helpers';
+import {DataTimeWeather} from '../../model-clasess/data-time-weather';
 
 describe('WeatherServiceService', () => {
   let httpClientSpy: { get: jasmine.Spy };
@@ -15,51 +13,66 @@ describe('WeatherServiceService', () => {
   });
 
 
-  it('should return expected town (HttpClient called once)', () => {
-
-    const coordinatesTowns: CoordinatesTown[] = [
-      {
-        id: 2643743, coordLat: '51.5085', coordLon: '-0.1257',
-        currentWeatherMain: 'Mist', nameCity: 'London', currentWindSpeed: 2.06,
-        currentWindDeg: 70, currentTemperatureMainTempMax: 282.59, currentTemperatureMainTempMin: 279.15,
-        currentTemperatureMainTemp: 281.77, currentWeatherDescription: 'mist', currentDateTime: '1614776745'
-      }
-    ];
-
-    httpClientSpy.get.and.returnValue(asyncData(coordinatesTowns));
-
-    service.getPaginatorElementsTown().subscribe(
-      coordown => {
-        console.log('coordown', coordown);
-        return expect(coordown).toEqual(coordinatesTowns, 'expected towns');
-      },
-      fail
-    );
-    expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
-  });
-
-
-  // it('should return an get week day weather for coords', () => {
-  //   const weekDays: DataTimeWeather =
+  // it('should return expected town (HttpClient called once)', () => {
+  //
+  //   const coordinatesTowns: any[] = [
   //     {
-  //       temperatureDay: 283.3,
-  //       idWeather: 1,
-  //       dt: '1614600000',
-  //       windSpeed: 4.07,
-  //       windDeg: 85,
-  //       mainTemperatureMax: 283.95,
-  //       mainTemperatureMin: 277.57,
-  //       weatherDescription: 'broken clouds',
-  //       weatherMain: 'Clouds',
-  //       weatherIcon: '04d'
-  //     };
+  //       coord: {
+  //         lon: -0.1257,
+  //         lat: 51.5085,
+  //       },
+  //       weather: [
+  //         {
+  //           id: 701,
+  //           main: "Mist",
+  //           description: "mist",
+  //           icon: "50d",
+  //         }
+  //       ],
+  //       base: "stations",
+  //       main: {
+  //         temp: 281.77,
+  //         feels_like: 280.01,
+  //         temp_min: 279.15,
+  //         temp_max: 282.59,
+  //         pressure: 1028,
+  //         humidity: 100,
+  //       },
+  //       visibility: 2000,
+  //       wind: {
+  //         speed: 2.06,
+  //         deg: 70,
+  //       },
+  //       clouds: {
+  //         all: 90
+  //       },
+  //       dt: 1614776745,
+  //       sys: {
+  //         type: 1,
+  //         id: 1414,
+  //         country: "GB",
+  //         sunrise: 1614753682,
+  //         sunset: 1614793428,
+  //       },
+  //       timezone: 0,
+  //       id: 2643743,
+  //       name: "London",
+  //       cod: 200,
+  //     }
+  //   ];
   //
-  //   httpClientSpy.get.and.returnValue(asyncData(weekDays));
+  //   httpClientSpy.get.and.returnValue(asyncData(coordinatesTowns));
   //
-  //   service.getWeekDayWeatherForCoords(1).subscribe(
-  //     day => expect(day).toEqual(weekDays, 'expected weekDays')
+  //   const resultTowns = [new CoordinatesTown(coordinatesTowns[0])];
+  //
+  //   service.getPaginatorElementsTown().subscribe(
+  //     coordown => {
+  //       console.log('coordown', coordown);
+  //       return expect(coordown).toEqual(resultTowns, 'expected towns');
+  //     },
+  //     fail
   //   );
-  //   expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+  //   expect(httpClientSpy.get.calls.count()).toBe(4, 'one call');
   // });
 
 
@@ -67,50 +80,38 @@ describe('WeatherServiceService', () => {
     service.getCountElementsTown().subscribe(item => expect(item).toBe(12, 'failed get size'), fail);
   });
 
+  it('test for get single coordinates town', () => {
+    const coordinatesTowns: CoordinatesTown =
+      {
+        id: 2643743, coordLat: '51.5085', coordLon: '-0.1257',
+        currentWeatherMain: 'Mist', nameCity: 'London', currentWindSpeed: 2.06,
+        currentWindDeg: 70, currentTemperatureMainTempMax: 282.59, currentTemperatureMainTempMin: 279.15,
+        currentTemperatureMainTemp: 281.77, currentWeatherDescription: 'mist', currentDateTime: '1614776745'
+      };
+
+    httpClientSpy.get.and.returnValue(asyncData(coordinatesTowns));
+
+    service.getSingleCoordinatesTown(2643743).subscribe(item => expect(item).toEqual(coordinatesTowns, 'expected town'),
+      fail);
+    expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+  });
+
+  it('test for get week day weather for coordinates', () => {
+
+
+    // let timeWeather: DataTimeWeather = {
+    //     idWeather:1,
+    //
+    // };
+
+    // httpClientSpy.get.and.returnValue(asyncData(dateTimeWeather));
+    service.getWeekDayWeatherForCoords().subscribe(item => {
+      console.log('item', item);
+    }, fail);
+    expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+  });
 
 });
-
-
-// describe('WeatherServiceService', () => {
-//   let spy: jasmine.Spy;
-//   let service: WeatherService;
-//
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [HttpClientTestingModule],
-//       providers: [WeatherService]
-//     });
-//   });
-//
-//   beforeEach(() => {
-//     service = TestBed.inject(WeatherService);
-//   });
-//
-//
-//   it('should return expected town (HttpClient called once)', () => {
-//
-//     const coordinatesTowns: any[] = [
-//       {
-//         id: 2643743, coordLat: '51.5085', coordLon: '-0.1257',
-//         currentWeatherMain: 'Mist', nameCity: 'London', currentWindSpeed: 2.06,
-//         currentWindDeg: 70, currentTemperatureMainTempMax: 282.59, currentTemperatureMainTempMin: 279.15,
-//         currentTemperatureMainTemp: 281.77, currentWeatherDescription: 'mist', currentDateTime: '1614776745'
-//       }
-//     ];
-//
-//
-//     spy = spyOn(service, 'getPaginatorElementsTown').and.callThrough();
-//     service.getPaginatorElementsTown().subscribe(items => {
-//       console.log('items', items);
-//       expect(items).toEqual(coordinatesTowns, 'expected towns');
-//     });
-//
-//     expect(spy).toHaveBeenCalled();
-//
-//   });
-//
-//
-// });
 
 
 

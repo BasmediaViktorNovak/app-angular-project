@@ -47,33 +47,40 @@ export class WeatherService {
     this.coordinatesTown = [];
     ARRAY_TOWN.slice(startIndex, endIndex).map(value => {
       this.http.get<CoordinatesTown>(this.domainName + this.parameters + `/weather?q=${value}` + this.somewhereAnchor)
-        .subscribe(item => this.coordinatesTown.push(new CoordinatesTown(item)));
+        .subscribe(item => {
+          console.log('itemInMethod', item);
+          this.coordinatesTown.push(new CoordinatesTown(item));
+        });
     });
     return of(this.coordinatesTown);
   }
 
 
   getSingleCoordinatesTown(idTown: number): Observable<CoordinatesTown> {
-    return this.http.get<CoordinatesTown>(this.domainName
-      + this.parameters + `/weather?id=${idTown}` + this.somewhereAnchor);
+    return this.http.get<CoordinatesTown>(this.domainName + this.parameters + `/weather?id=${idTown}` + this.somewhereAnchor);
   }
 
 
-  getWeekDayWeatherForCoords(idTown: number = 1): Observable<DataTimeWeather> {
-    // tslint:disable-next-line:one-variable-per-declaration prefer-const
-    let coordinateLat, coordinateLon;
-    if (typeof this.coordinatesTown !== 'undefined' && this.coordinatesTown.length > 0) {
-      const findTown = this.coordinatesTown.find(town => town.id === idTown);
-      coordinateLat = findTown.coordLat;
-      coordinateLon = findTown.coordLat;
-    } else {
-      this.getSingleCoordinatesTown(idTown).subscribe(items => {
-        coordinateLat = items.coordLat;
-        coordinateLon = items.coordLon;
-      });
-    }
-    return this.http.get<DataTimeWeather>(this.domainName + this.parameters + `/onecall?lat=${coordinateLat}&lon=${coordinateLon}&exclude=minutely,hourly` + this.somewhereAnchor);
-  }
+  // getWeekDayWeatherForCoords(idTown: number = 1): Observable<DataTimeWeather> {
+  //   // tslint:disable-next-line:one-variable-per-declaration prefer-const
+  //   let coordinateLat, coordinateLon;
+  //   if (typeof this.coordinatesTown !== 'undefined' && this.coordinatesTown.length > 0) {
+  //     const findTown = this.coordinatesTown.find(town => town.id === idTown);
+  //     coordinateLat = findTown.coordLat;
+  //     coordinateLon = findTown.coordLat;
+  //   } else {
+  //     this.getSingleCoordinatesTown(idTown).subscribe(items => {
+  //       coordinateLat = items.coordLat;
+  //       coordinateLon = items.coordLon;
+  //     });
+  //   }
+  //   return this.http.get<DataTimeWeather>(this.domainName + this.parameters + `/onecall?lat=${coordinateLat}&lon=${coordinateLon}&exclude=minutely,hourly` + this.somewhereAnchor);
+  // }
+
+
+  // getWeekDayWeatherForCoords(idTown: number = 1): Observable<DataTimeWeather> {
+  //
+  // }
 
 
 }

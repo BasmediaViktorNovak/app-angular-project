@@ -20,14 +20,6 @@ export function asyncData<T>(data: T): any {
   return defer(() => Promise.resolve(data));
 }
 
-/**
- * Create async observable error that errors
- * after a JS engine turn
- */
-export function asyncError<T>(errorObject: any): any {
-  return defer(() => Promise.reject(errorObject));
-}
-
 
 /*
 Copyright Google LLC. All Rights Reserved.

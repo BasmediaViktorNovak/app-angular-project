@@ -7,6 +7,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 describe('DayDetailsListComponent', () => {
   let component: DayDetailsListComponent;
   let fixture: ComponentFixture<DayDetailsListComponent>;
+  let spy: jasmine.Spy;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,6 +27,12 @@ describe('DayDetailsListComponent', () => {
   it('should create', () => {
     component.ngOnInit();
     expect(component).toBeDefined();
+  });
+
+  it('test for day detail list component', () => {
+    spy = spyOn(component, 'selectedWeatherItem').and.callThrough();
+    component.selectedWeatherItem();
+    expect(spy).toHaveBeenCalled();
   });
 
 
