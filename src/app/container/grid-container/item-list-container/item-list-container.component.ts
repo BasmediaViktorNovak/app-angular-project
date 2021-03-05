@@ -11,7 +11,7 @@ export class ItemListContainerComponent implements OnInit {
   pageSliceSubj: CoordinatesTown[];
 
   constructor(private weatherService: WeatherService) {
-    this.weatherService.pageSliceSubj.subscribe(items => this.pageSliceSubj = items);
+    this.weatherService.coordinatesTownArraySubj.subscribe(items => this.pageSliceSubj = items);
   }
 
   ngOnInit(): void {

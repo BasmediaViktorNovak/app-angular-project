@@ -13,11 +13,12 @@ export class ItemDetailsComponent implements OnInit {
   todayWeather: DataTimeWeather;
 
   constructor(private weatherService: WeatherService) {
-    this.weatherService.town.subscribe(town => this.town = town);
+    this.weatherService.coordinatesTownSingleSubj.subscribe(town => this.town = town);
     this.weatherService.todayWeather.subscribe(item => this.todayWeather = item);
   }
 
   ngOnInit(): void {
+
   }
 
 }

@@ -82,7 +82,8 @@
             "main": "src/test.ts",
             "codeCoverageExclude": [
               "src/app/model-clasess/coordinates-town.ts",
-              "src/app/model-clasess/data-time-weather.ts"
+              "src/app/model-clasess/data-time-weather.ts",
+              "src/testing/async-observable-helpers.ts"
             ],
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",

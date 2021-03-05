@@ -13,13 +13,13 @@ export class DayDetailsListComponent implements OnInit {
   idWeather: number;
 
   constructor(private weatherService: WeatherService) {
+  }
+
+  ngOnInit(): void {
     this.weatherService.listDataTimeWeatherSubj.subscribe(items => {
       this.weatherListDay = items;
       this.selectedWeatherItem();
     });
-  }
-
-  ngOnInit(): void {
   }
 
   selectedWeatherItem(idWeather: number = 1): void {

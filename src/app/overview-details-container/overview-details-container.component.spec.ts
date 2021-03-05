@@ -5,9 +5,7 @@ import {WeatherService} from '../services/weather-service/weather.service';
 import {MaterialModule} from '../material-angular-ui/material.module';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import Spy = jasmine.Spy;
-import {asyncData} from '../../testing/async-observable-helpers';
-import {CoordinatesTown} from '../model-clasess/coordinates-town';
+
 
 
 describe('OverviewDetailsContainerComponent', () => {
@@ -15,7 +13,6 @@ describe('OverviewDetailsContainerComponent', () => {
   let fixture: ComponentFixture<OverviewDetailsContainerComponent>;
   let router: Router;
   let route: ActivatedRoute;
-  let spy: Spy;
   let service: WeatherService;
 
   beforeEach(async () => {
@@ -49,17 +46,16 @@ describe('OverviewDetailsContainerComponent', () => {
   }));
 
 
-  it('test get single coordinates town', () => {
-    const coordinatesTowns: CoordinatesTown =
-      {
-        id: 2643743, coordLat: '51.5085', coordLon: '-0.1257',
-        currentWeatherMain: 'Mist', nameCity: 'London', currentWindSpeed: 2.06,
-        currentWindDeg: 70, currentTemperatureMainTempMax: 282.59, currentTemperatureMainTempMin: 279.15,
-        currentTemperatureMainTemp: 281.77, currentWeatherDescription: 'mist', currentDateTime: '1614776745'
-      };
-    spy = spyOn(service, 'getSingleCoordinatesTown').and.callThrough();
-    component.getSingleCoordinatesTown();
-    expect(spy).toHaveBeenCalled();
-  });
+  // it('test get single coordinates town', () => {
+  //   const coordinatesTowns: CoordinatesTown =
+  //     {
+  //       id: 2643743, coordLat: '51.5085', coordLon: '-0.1257',
+  //       currentWeatherMain: 'Mist', nameCity: 'London', currentWindSpeed: 2.06,
+  //       currentWindDeg: 70, currentTemperatureMainTempMax: 282.59, currentTemperatureMainTempMin: 279.15,
+  //       currentTemperatureMainTemp: 281.77, currentWeatherDescription: 'mist', currentDateTime: '1614776745'
+  //     };
+  //   spy = spyOn(service, 'getSingleCoordinatesTown').and.callThrough();
+  //   expect(spy).toHaveBeenCalled();
+  // });
 
 });

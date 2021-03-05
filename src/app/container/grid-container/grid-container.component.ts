@@ -12,12 +12,12 @@ import {ItemListContainerComponent} from './item-list-container/item-list-contai
 })
 
 export class GridContainerComponent implements OnInit {
-
-  items: Array<CoordinatesTown>;
-  pageSlice: Array<CoordinatesTown>;
-  countElementsTown: number;
   changeComponent: any;
   isChangeComponent = true;
+  countElementsTown: number;
+
+  items: Array<CoordinatesTown> = new Array<CoordinatesTown>();
+  pageSlice: Array<CoordinatesTown> = new Array<CoordinatesTown>();
 
 
   constructor(private weatherService: WeatherService) {
@@ -26,22 +26,17 @@ export class GridContainerComponent implements OnInit {
   ngOnInit(): void {
     this.weatherService.renderingComponentSubj.subscribe(renderComp => this.changeComponent = renderComp);
     this.weatherService.getCountElementsTown().subscribe(count => this.countElementsTown = count);
-    this.weatherService.getPaginatorElementsTown().subscribe(s => this.pageSlice = s);
-    this.weatherService.pageSliceSubj.next(this.pageSlice);
+    this.weatherService.getPaginatorElementsTown().subscribe(items => this.weatherService.coordinatesTownArraySubj.next(items));
   }
 
   public OnPageChange($event: PageEvent): void {
-    this.weatherService.getPaginatorElementsTown($event.pageIndex, $event.pageSize).subscribe(s => this.pageSlice = s);
-    this.weatherService.pageSliceSubj.next(this.pageSlice);
+    this.weatherService.getPaginatorElementsTown($event.pageIndex, $event.pageSize)
+      .subscribe(items => this.weatherService.coordinatesTownArraySubj.next(items));
   }
 
   changeStyleGrid(): void {
     this.isChangeComponent = !this.isChangeComponent;
-    if (this.isChangeComponent) {
-      this.changeComponent = ItemListContainerComponent;
-    } else {
-      this.changeComponent = ItemContainerComponent;
-    }
+    this.changeComponent = this.isChangeComponent ? ItemListContainerComponent : ItemContainerComponent;
     this.weatherService.renderingComponentSubj.next(this.changeComponent);
   }
 

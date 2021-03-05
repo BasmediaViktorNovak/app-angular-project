@@ -9,10 +9,10 @@ import {WeatherService} from '../../../services/weather-service/weather.service'
 })
 export class ItemContainerComponent implements OnInit {
 
-  pageSliceSubj: CoordinatesTown[];
+  pageSliceSubj: Array<CoordinatesTown> = new Array<CoordinatesTown>();
 
   constructor(private weatherService: WeatherService) {
-    this.weatherService.pageSliceSubj.subscribe(items => this.pageSliceSubj = items);
+    this.weatherService.coordinatesTownArraySubj.subscribe(items => this.pageSliceSubj = items);
   }
 
   ngOnInit(): void {
