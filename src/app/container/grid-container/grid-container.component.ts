@@ -24,6 +24,7 @@ export class GridContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.weatherService.renderingComponentSubj.next(ItemContainerComponent);
     this.weatherService.renderingComponentSubj.subscribe(renderComp => this.changeComponent = renderComp);
     this.weatherService.getCountElementsTown().subscribe(count => this.countElementsTown = count);
     this.weatherService.getPaginatorElementsTown().subscribe(items => this.weatherService.coordinatesTownArraySubj.next(items));

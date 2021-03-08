@@ -4,7 +4,6 @@ import {DataTimeWeather} from '../../model-clasess/data-time-weather';
 import {ARRAY_TOWN} from '../../array-town/array-town';
 import {HttpClient} from '@angular/common/http';
 import {CoordinatesTown} from '../../model-clasess/coordinates-town';
-import {ItemContainerComponent} from '../../container/grid-container/item-container/item-container.component';
 
 
 @Injectable({providedIn: 'root'})
@@ -17,7 +16,7 @@ export class WeatherService {
   private somewhereAnchor = '&appid=08288f94e8758e1982d73e4865e2895f';
 
   /*Variables*/
-  renderingComponentSubj: BehaviorSubject<any> = new BehaviorSubject<any>(ItemContainerComponent);
+  renderingComponentSubj: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   coordinatesTownArraySubj: BehaviorSubject<Array<CoordinatesTown>> = new BehaviorSubject<Array<CoordinatesTown>>([]);
   coordinatesTownSingleSubj: Subject<CoordinatesTown> = new Subject<CoordinatesTown>();
   todayWeather: Subject<DataTimeWeather> = new Subject<DataTimeWeather>();

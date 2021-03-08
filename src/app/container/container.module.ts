@@ -9,6 +9,7 @@ import {CommonModule} from '@angular/common';
 import {HeaderContainerModule} from './header-container/header-container.module';
 import {FormsModule} from '@angular/forms';
 import {ItemListContainerComponent} from './grid-container/item-list-container/item-list-container.component';
+import {AdminModule} from '../admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {ItemListContainerComponent} from './grid-container/item-list-container/i
     MaterialModule,
     CommonModule,
     HeaderContainerModule,
-    FormsModule
+    FormsModule,
+    AdminModule
   ],
   providers: []
 })

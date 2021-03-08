@@ -1,0 +1,10 @@
+<h3>ADMIN</h3>
+<nav>
+  <ul>
+    <li><a routerLink="" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Admin</a></li>
+    <li><a routerLink="./manage-weather" routerLinkActive="active">Manage Weather</a></li>
+  </ul>
+</nav>
+<button type="button" (click)="logout()">LOG OUT</button>
+<router-outlet></router-outlet>
