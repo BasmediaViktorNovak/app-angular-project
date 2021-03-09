@@ -4,8 +4,8 @@ import {AdminRoutingModule} from './admin-routing.module';
 import {AdminComponent} from './admin/admin.component';
 import {AdminDashboardComponent} from './admin-dashboard/admin-dashboard.component';
 import {ManageWeatherComponent} from './manage-weather/manage-weather.component';
-import {MatTableModule} from "@angular/material/table";
-import {MaterialModule} from "../material-angular-ui/material.module";
+import {MatTableModule} from '@angular/material/table';
+import {MaterialModule} from '../material-angular-ui/material.module';
 
 
 @NgModule({

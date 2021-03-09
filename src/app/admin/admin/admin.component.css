@@ -1,0 +1,5 @@
+.but-log-out{
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em;
+}

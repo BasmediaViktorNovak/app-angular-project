@@ -3,22 +3,32 @@ import {Observable, of} from 'rxjs';
 import {tap, mapTo, catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Tokens} from '../../model-clasess/tokens';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {WeatherService} from '../../services/weather-service/weather.service';
+import {UserData} from '../../model-clasess/user-data';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  private JWT_TOKEN = null;
-  private REFRESH_TOKEN = null;
+  private JWT_TOKEN: string;
+  private REFRESH_TOKEN: string;
   private loggedUser: string;
+  private decodeToken: any;
+  private helper = new JwtHelperService();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private weatherService: WeatherService) {
   }
 
   public login(user: { username: string, password: string }): Observable<boolean> {
     return this.http.post<any>(`http://localhost:8080/login`, user)
       .pipe(
         tap(tokens => {
-          console.log('tokens', tokens);
           this.doLoginUser(user.username, tokens);
+          this.decodeToken = this.helper.decodeToken(tokens.jwt);
+          console.log('Decode Data', new UserData(this.decodeToken));
+          const array: Array<UserData> = new Array<UserData>();
+          array.push(new UserData(this.decodeToken));
+          this.weatherService.arrayUserDataSubj.next(array);
         }),
         mapTo(true),
         catchError(error => {
@@ -58,10 +68,6 @@ export class AuthService {
     this.storeTokens(tokens);
   }
 
-  public doLogoutUser(): void {
-    this.loggedUser = null;
-    this.removeTokens();
-  }
 
   private getRefreshToken(): any {
     return localStorage.getItem(this.REFRESH_TOKEN);
@@ -74,7 +80,8 @@ export class AuthService {
     localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
   }
 
-  public removeTokens(): void {
+  public doLogoutUser(): void {
+    this.loggedUser = null;
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem(this.REFRESH_TOKEN);
   }

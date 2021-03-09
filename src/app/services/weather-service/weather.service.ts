@@ -4,6 +4,7 @@ import {DataTimeWeather} from '../../model-clasess/data-time-weather';
 import {ARRAY_TOWN} from '../../array-town/array-town';
 import {HttpClient} from '@angular/common/http';
 import {CoordinatesTown} from '../../model-clasess/coordinates-town';
+import {UserData} from "../../model-clasess/user-data";
 
 
 @Injectable({providedIn: 'root'})
@@ -21,6 +22,8 @@ export class WeatherService {
   coordinatesTownSingleSubj: Subject<CoordinatesTown> = new Subject<CoordinatesTown>();
   todayWeather: Subject<DataTimeWeather> = new Subject<DataTimeWeather>();
   listDataTimeWeatherSubj: Subject<Array<DataTimeWeather>> = new Subject<Array<DataTimeWeather>>();
+
+  arrayUserDataSubj: BehaviorSubject<Array<UserData>> = new BehaviorSubject<Array<UserData>>([]);
 
   constructor(private http: HttpClient) {
     this.subscribingOnUpdateDataWeather();

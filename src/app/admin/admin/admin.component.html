@@ -6,5 +6,7 @@
     <li><a routerLink="./manage-weather" routerLinkActive="active">Manage Weather</a></li>
   </ul>
 </nav>
-<button type="button" (click)="logout()">LOG OUT</button>
+<div class="but-log-out">
+  <button mat-raised-button color="primary" type="button" (click)="logout()">LOG OUT</button>
+</div>
 <router-outlet></router-outlet>
