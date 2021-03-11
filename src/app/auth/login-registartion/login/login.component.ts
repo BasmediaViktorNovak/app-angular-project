@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from '../auth-service/auth.service';
+import {AuthService} from '../../../services/auth-service/auth.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -25,22 +25,13 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    this.authService.login(
-      {
-        username: this.loginForm.controls.username.value,
-        password: this.loginForm.controls.password.value
+    this.authService.loginFireBase(this.loginForm.value).subscribe(isResult => {
+      if (isResult) {
+        this.router.navigateByUrl('/admin');
       }
-    )
-      .subscribe(success => {
-        if (success) {
-          this.router.navigate(['/admin']);
-        }
-      });
+    });
 
   }
 
 
-  navigateOnMainPage(): void {
-    this.router.navigateByUrl('/');
-  }
 }

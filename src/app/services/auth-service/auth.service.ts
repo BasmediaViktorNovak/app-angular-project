@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject, Subscription} from 'rxjs';
 import {tap, mapTo, catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Tokens} from '../../model-clasess/tokens';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {WeatherService} from '../../services/weather-service/weather.service';
+import {WeatherService} from '../weather-service/weather.service';
 import {UserData} from '../../model-clasess/user-data';
+import * as bcrypt from 'bcryptjs';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -16,7 +18,8 @@ export class AuthService {
   private helper = new JwtHelperService();
 
   constructor(private http: HttpClient,
-              private weatherService: WeatherService) {
+              private weatherService: WeatherService,
+              private db: AngularFireDatabase) {
   }
 
   public login(user: { username: string, password: string }): Observable<boolean> {
@@ -24,11 +27,13 @@ export class AuthService {
       .pipe(
         tap(tokens => {
           this.doLoginUser(user.username, tokens);
+          /*Decode tokens*/
           this.decodeToken = this.helper.decodeToken(tokens.jwt);
           console.log('Decode Data', new UserData(this.decodeToken));
           const array: Array<UserData> = new Array<UserData>();
           array.push(new UserData(this.decodeToken));
           this.weatherService.arrayUserDataSubj.next(array);
+
         }),
         mapTo(true),
         catchError(error => {
@@ -37,6 +42,34 @@ export class AuthService {
         })
       );
   }
+
+
+  public registrationFireBase(user: { email: string, username: string, password: string }): Observable<boolean> {
+    try {
+      user.password = bcrypt.hashSync(user.password, 10);
+      this.db.list('users').push(user);
+      return of(true);
+    } catch (e) {
+      console.log('Exception', e.message);
+      return of(true);
+    }
+  }
+
+
+  public loginFireBase(user: { username: string, password: string }): Observable<boolean> {
+    const resultSubj: Subject<boolean> = new Subject<boolean>();
+
+    this.db.list('users').valueChanges().subscribe(val => {
+      // @ts-ignore
+      const findUser = val.find(x => x.username === user.username);
+      // @ts-ignore
+      bcrypt.compare(user.password, findUser.password, (err, result) => {
+        resultSubj.next(result ? result : false);
+      });
+    });
+    return resultSubj.asObservable();
+  }
+
 
   public logout(): Observable<boolean> {
     return this.http.post<any>(`http://localhost:8080/login`, {

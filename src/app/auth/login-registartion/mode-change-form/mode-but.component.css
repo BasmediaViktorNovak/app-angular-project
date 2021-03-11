@@ -1,0 +1,11 @@
+.example-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1.5em 0;
+}
+
+.example-button-container > div {
+  flex: 1 1 auto;
+}

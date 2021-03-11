@@ -2,8 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ContainerComponent} from './container/container.component';
 import {CustomPreloadingService} from './services/custom-preloading-service/custom-preloading.service';
-import {LoginComponent} from './auth/login/login.component';
-import {AuthGuard} from './auth/auth.guard';
+import {AuthGuard} from './auth/auth-guard/auth.guard';
 
 
 const routes: Routes = [
@@ -25,7 +24,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canLoad: [AuthGuard]
   },
-  {path: 'login', component: LoginComponent},
+  {
+    path: 'auth',
+    data: {preload: true, loadAfter: 5000},
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
   {path: '**', component: ContainerComponent}
 ];
 

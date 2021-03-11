@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {AuthService} from '../auth-service/auth.service';
+import {AuthService} from '../../services/auth-service/auth.service';
 import {catchError, filter, switchMap, take} from 'rxjs/operators';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class TokenInterceptor implements HttpInterceptor {
   private addToken(request: HttpRequest<any>, token: string): any {
     return request.clone({
       setHeaders: {
-        Autorization: `Bear ${token}`
+        autorization: `Bear ${token}`
       }
     });
   }

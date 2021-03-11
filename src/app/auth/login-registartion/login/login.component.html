@@ -1,11 +1,7 @@
 <div class="login-box">
-  <div class="example-button-container">
-    <button (click)="navigateOnMainPage()" mat-fab color="warn" aria-label="Example icon button with a home icon">
-      <mat-icon>home</mat-icon>
-    </button>
-  </div>
   <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <app-mode-but></app-mode-but>
+  <form (ngSubmit)="login()" [formGroup]="loginForm">
     <div class="user-box">
       <input id="username" type="text" name="username" formControlName="username" required="" autocomplete="off">
       <label>Username</label>
