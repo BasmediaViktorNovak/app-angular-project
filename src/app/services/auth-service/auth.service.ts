@@ -30,10 +30,7 @@ export class AuthService {
           /*Decode tokens*/
           this.decodeToken = this.helper.decodeToken(tokens.jwt);
           console.log('Decode Data', new UserData(this.decodeToken));
-          const array: Array<UserData> = new Array<UserData>();
-          array.push(new UserData(this.decodeToken));
-          this.weatherService.arrayUserDataSubj.next(array);
-
+          /*End Decode tokens*/
         }),
         mapTo(true),
         catchError(error => {
@@ -42,7 +39,6 @@ export class AuthService {
         })
       );
   }
-
 
   public registrationFireBase(user: { email: string, username: string, password: string }): Observable<boolean> {
     try {

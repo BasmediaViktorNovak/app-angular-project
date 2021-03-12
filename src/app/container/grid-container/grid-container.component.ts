@@ -4,6 +4,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {CoordinatesTown} from '../../model-clasess/coordinates-town';
 import {ItemContainerComponent} from './item-container/item-container.component';
 import {ItemListContainerComponent} from './item-list-container/item-list-container.component';
+import {asapScheduler} from "rxjs";
 
 @Component({
   selector: 'app-grid-container',
@@ -24,10 +25,11 @@ export class GridContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.weatherService.renderingComponentSubj.next(ItemContainerComponent);
     this.weatherService.renderingComponentSubj.subscribe(renderComp => this.changeComponent = renderComp);
+    this.weatherService.renderingComponentSubj.next(ItemContainerComponent);
     this.weatherService.getCountElementsTown().subscribe(count => this.countElementsTown = count);
-    this.weatherService.getPaginatorElementsTown().subscribe(items => this.weatherService.coordinatesTownArraySubj.next(items));
+    asapScheduler.schedule(() => this.weatherService.getPaginatorElementsTown()
+      .subscribe(items => this.weatherService.coordinatesTownArraySubj.next(items)));
   }
 
   public OnPageChange($event: PageEvent): void {

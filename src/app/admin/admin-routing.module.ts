@@ -6,7 +6,7 @@ import {AdminDashboardComponent} from './admin-dashboard/admin-dashboard.compone
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: AdminComponent,
     children: [
       {path: 'manage-weather', component: ManageWeatherComponent},

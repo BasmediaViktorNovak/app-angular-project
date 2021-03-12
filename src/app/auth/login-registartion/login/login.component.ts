@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    this.authService.loginFireBase(this.loginForm.value).subscribe(isResult => {
+    this.authService.login(this.loginForm.value).subscribe(isResult => {
       if (isResult) {
         this.router.navigateByUrl('/admin');
       }

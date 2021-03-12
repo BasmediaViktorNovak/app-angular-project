@@ -18,7 +18,6 @@ export class AdminComponent implements OnInit {
   public logout(): void {
     this.authService.logout().subscribe(success => {
       if (success) {
-        console.log('SUCCESS');
         this.router.navigate(['/login']);
       }
     });

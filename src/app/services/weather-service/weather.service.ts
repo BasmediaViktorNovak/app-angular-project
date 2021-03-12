@@ -4,7 +4,8 @@ import {DataTimeWeather} from '../../model-clasess/data-time-weather';
 import {ARRAY_TOWN} from '../../array-town/array-town';
 import {HttpClient} from '@angular/common/http';
 import {CoordinatesTown} from '../../model-clasess/coordinates-town';
-import {UserData} from "../../model-clasess/user-data";
+import {UserData} from '../../model-clasess/user-data';
+import {mergeMap} from 'rxjs/operators';
 
 
 @Injectable({providedIn: 'root'})
@@ -16,17 +17,16 @@ export class WeatherService {
   private parameters = '/data/2.5';
   private somewhereAnchor = '&appid=08288f94e8758e1982d73e4865e2895f';
 
+
   /*Variables*/
   renderingComponentSubj: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   coordinatesTownArraySubj: BehaviorSubject<Array<CoordinatesTown>> = new BehaviorSubject<Array<CoordinatesTown>>([]);
   coordinatesTownSingleSubj: Subject<CoordinatesTown> = new Subject<CoordinatesTown>();
   todayWeather: Subject<DataTimeWeather> = new Subject<DataTimeWeather>();
   listDataTimeWeatherSubj: Subject<Array<DataTimeWeather>> = new Subject<Array<DataTimeWeather>>();
-
   arrayUserDataSubj: BehaviorSubject<Array<UserData>> = new BehaviorSubject<Array<UserData>>([]);
 
   constructor(private http: HttpClient) {
-    this.subscribingOnUpdateDataWeather();
   }
 
   getCountElementsTown(): Observable<number> {
@@ -61,28 +61,14 @@ export class WeatherService {
     return of(coordinatesTown);
   }
 
-
-  subscribingOnUpdateDataWeather(): void {
-    this.coordinatesTownSingleSubj.subscribe(elem => {
-      this.getWeekDayWeatherCoordinates(elem.coordLat, elem.coordLon).subscribe(weather => {
-        const arrays: Array<DataTimeWeather> = new Array<DataTimeWeather>();
-        // @ts-ignore
-        weather.daily.map((element, idx) => {
-          arrays.push(new DataTimeWeather(idx + 1, element));
-        });
-        this.listDataTimeWeatherSubj.next(arrays);
-      });
-    });
-  }
-
-
-  updateDateWeatherTimeNext(idTown: number): void {
-    const item = this.coordinatesTownArraySubj.value;
-    if (typeof item !== 'undefined' && item.length > 0) {
-      this.coordinatesTownSingleSubj.next(item.find(x => x.id === idTown));
-    } else {
-      this.getSingleCoordinatesTownForID(idTown).subscribe(elements => this.coordinatesTownSingleSubj.next(new CoordinatesTown(elements)));
-    }
+  onUpdateDataWeather(idTown: number): Observable<any> {
+    return this.getSingleCoordinatesTownForID(idTown).pipe(
+      mergeMap(elem => {
+        elem = new CoordinatesTown(elem);
+        this.coordinatesTownSingleSubj.next(elem);
+        return this.getWeekDayWeatherCoordinates(elem.coordLat, elem.coordLon);
+      })
+    );
   }
 
 
